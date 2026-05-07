@@ -1,0 +1,592 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#6c63ff;--p-light:rgba(108,99,255,0.15);--p-glow:rgba(108,99,255,0.3);
+  --sec:#4f46e5;--success:#10b981;
+  --dark:#0f172a;--dark2:#1e293b;--dark3:#162032;
+  --surface1:#1a2540;--surface2:#212e48;--surface3:#ffffff;
+  --glass:rgba(30,41,59,0.7);--glass-b:rgba(255,255,255,0.08);
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --text:#e2e8f0;--text2:#94a3b8;
+  --card-dark:#1e2d45;
+}
+body{background:var(--dark);font-family:'Poppins',system-ui,sans-serif;color:var(--text);padding:0}
+.ds{max-width:900px;margin:0 auto;padding:36px 28px 60px}
+
+.sec{margin-bottom:56px}
+.sec-tag{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-tag::before{content:'';display:inline-block;width:20px;height:1.5px;background:var(--p)}
+.sec-title{font-size:28px;font-weight:700;color:#fff;margin-bottom:24px}
+.divider{height:1px;background:var(--border);margin-bottom:24px}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+
+.box{background:var(--surface1);border:1px solid var(--border);border-radius:16px;padding:18px}
+.box-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.box-label::before{content:'#';color:var(--p)}
+
+/* ── COLOR PALETTE ── */
+.swatch-stack{display:flex;flex-direction:column;gap:2px;border-radius:12px;overflow:hidden}
+.swatch-row-h{display:flex;height:52px;border-radius:12px;overflow:hidden;gap:2px}
+.sw{flex:1;transition:flex .2s ease}
+.sw:hover{flex:2.5}
+.color-meta{margin-top:10px}
+.color-name{font-size:13px;font-weight:600;color:#e2e8f0}
+.color-hex{font-size:11px;font-family:monospace;color:var(--muted)}
+.color-var{font-size:10px;font-family:monospace;color:var(--p);margin-top:1px}
+
+.token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.token{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px}
+.token-swatch{width:36px;height:36px;border-radius:8px;flex-shrink:0}
+.token-name{font-size:11px;font-family:monospace;color:var(--p);display:block}
+.token-val{font-size:12px;font-weight:600;color:#e2e8f0;display:block;margin-top:2px}
+.token-desc{font-size:11px;color:var(--muted);margin-top:1px;display:block}
+
+/* ── TYPOGRAPHY ── */
+.type-row{display:flex;align-items:flex-start;gap:20px;padding:16px 0;border-bottom:1px solid var(--border)}
+.type-row:last-child{border-bottom:none}
+.type-meta{min-width:140px;flex-shrink:0}
+.type-label-name{font-size:12px;font-weight:600;color:#e2e8f0}
+.type-detail{font-size:11px;font-family:monospace;color:var(--muted);margin-top:3px;line-height:1.6}
+.type-specimen{flex:1}
+
+/* ── BUTTONS ── */
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:linear-gradient(135deg,var(--p),var(--sec));border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:.3s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px var(--p-glow)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:var(--success);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-g{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:transparent;border:1.5px solid var(--p);border-radius:12px;color:var(--p);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-ghost2{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:12px;color:#e2e8f0;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-sm{padding:8px 16px;font-size:12px;border-radius:8px}
+
+/* ── INPUTS ── */
+.inp-wrap{position:relative;width:100%}
+.inp-wrap i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--p);font-size:15px;pointer-events:none;z-index:1}
+.inp-wrap input,.inp-wrap select{width:100%;padding:13px 14px 13px 44px;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:12px;color:#e2e8f0;font-size:14px;outline:none;font-family:inherit;transition:.25s}
+.inp-wrap input:focus,.inp-wrap select:focus{border-color:var(--p);background:rgba(108,99,255,.08);box-shadow:0 0 0 3px rgba(108,99,255,.15)}
+.inp-wrap input::placeholder{color:var(--muted)}
+.inp-base{width:100%;padding:13px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:12px;color:#e2e8f0;font-size:14px;outline:none;font-family:inherit;transition:.25s}
+.inp-base:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(108,99,255,.15)}
+.inp-base option{background:#1e2d45;color:#e2e8f0}
+
+/* ── BADGES ── */
+.badge-dark{background:rgba(15,23,42,.85);backdrop-filter:blur(4px);color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:500;display:inline-block}
+.badge-ok{background:var(--success);color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:500;display:inline-block}
+.pill{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:5px}
+.pill-loading{background:rgba(250,204,21,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+.pill-success{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(52,211,153,.2)}
+.pill-error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(248,113,113,.2)}
+.pill-active{background:rgba(108,99,255,.15);color:#a5b4fc;border:1px solid rgba(165,180,252,.2)}
+.pill-disabled{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+
+/* ── GLASS CARD ── */
+.glass-card{background:var(--glass);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:28px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.glass-input{width:100%;padding:13px 14px 13px 44px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;font-size:14px;outline:none;font-family:inherit;margin-bottom:10px}
+
+/* ── WHITE CARD ── */
+.white-card{background:#fff;border-radius:20px;padding:24px;color:var(--dark2)}
+
+/* ── DROP ZONE ── */
+.drop{border:2px dashed rgba(255,255,255,.15);border-radius:16px;padding:36px 20px;text-align:center;background:rgba(255,255,255,.02);transition:.3s;cursor:pointer}
+.drop:hover{border-color:var(--p);background:rgba(108,99,255,.05)}
+.drop-icon{font-size:32px;color:var(--p);margin-bottom:10px}
+
+/* ── SHADOWS ── */
+.sh-card{background:var(--surface1);border-radius:14px;padding:18px;text-align:center}
+.sh-none{border:1px solid var(--border)}
+.sh-sm{box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.sh-md{box-shadow:0 10px 25px rgba(0,0,0,.35)}
+.sh-lg{box-shadow:0 25px 50px -12px rgba(0,0,0,.6)}
+.sh-glow{box-shadow:0 15px 30px var(--p-glow)}
+.sh-success{box-shadow:0 8px 20px rgba(16,185,129,.25)}
+.sh-val{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
+.sh-name{font-size:12px;font-weight:600;color:var(--muted)}
+.sh-code{font-size:10px;font-family:monospace;color:rgba(255,255,255,.25);margin-top:6px;line-height:1.6}
+
+/* ── RADIUS ── */
+.r-box{background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;font-size:11px;color:var(--p);font-weight:600;gap:2px}
+</style>
+
+<div class="ds">
+
+  <div style="text-align:center;margin-bottom:52px">
+    <div style="font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Design System</div>
+    <div style="font-size:42px;font-weight:700;color:#fff">Snap <span style="color:var(--p)">Poster</span></div>
+    <div style="margin-top:10px;font-size:13px;color:var(--muted)">Color Palette &nbsp;·&nbsp; Type Scale &nbsp;·&nbsp; UI Components &nbsp;·&nbsp; Shadows</div>
+  </div>
+
+  <!-- 01 COLOR PALETTE -->
+  <div class="sec">
+    <div class="sec-tag">01 — Foundation</div>
+    <div class="sec-title">Color Palette</div>
+    <div class="divider"></div>
+
+    <div class="g3" style="margin-bottom:14px">
+      <div class="box">
+        <div class="box-label">Primary</div>
+        <div class="swatch-row-h">
+          <div class="sw" style="background:#ede9fe"></div>
+          <div class="sw" style="background:#c4b5fd"></div>
+          <div class="sw" style="background:#a78bfa"></div>
+          <div class="sw" style="background:#6c63ff"></div>
+          <div class="sw" style="background:#4f46e5"></div>
+          <div class="sw" style="background:#3730a3"></div>
+          <div class="sw" style="background:#1e1b4b"></div>
+        </div>
+        <div class="color-meta">
+          <div class="color-name">Indigo Purple</div>
+          <div class="color-hex">#6c63ff → #4f46e5</div>
+          <div class="color-var">--primary / --secondary</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-label">Secondary</div>
+        <div class="swatch-row-h">
+          <div class="sw" style="background:#ddd6fe"></div>
+          <div class="sw" style="background:#c4b5fd"></div>
+          <div class="sw" style="background:#a78bfa"></div>
+          <div class="sw" style="background:#8b5cf6"></div>
+          <div class="sw" style="background:#7c3aed"></div>
+          <div class="sw" style="background:#6d28d9"></div>
+          <div class="sw" style="background:#4c1d95"></div>
+        </div>
+        <div class="color-meta">
+          <div class="color-name">Violet</div>
+          <div class="color-hex">#8b5cf6 → #6d28d9</div>
+          <div class="color-var">--secondary-alt</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-label">Primary Light</div>
+        <div style="height:52px;border-radius:10px;background:rgba(108,99,255,0.2);border:1px solid rgba(108,99,255,.3);display:flex;align-items:center;justify-content:center">
+          <span style="font-size:11px;font-family:monospace;color:var(--p)">rgba(108,99,255, 0.2)</span>
+        </div>
+        <div class="color-meta">
+          <div class="color-name">Primary Glow</div>
+          <div class="color-hex">Used for hover glows</div>
+          <div class="color-var">--primary-light</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-bottom:14px">
+      <div class="box">
+        <div class="box-label">Success</div>
+        <div class="swatch-row-h">
+          <div class="sw" style="background:#d1fae5"></div>
+          <div class="sw" style="background:#6ee7b7"></div>
+          <div class="sw" style="background:#10b981"></div>
+          <div class="sw" style="background:#059669"></div>
+          <div class="sw" style="background:#064e3b"></div>
+        </div>
+        <div class="color-meta">
+          <div class="color-name">Emerald</div>
+          <div class="color-hex">#10b981</div>
+          <div class="color-var">--success</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-label">Dark BG</div>
+        <div class="swatch-row-h">
+          <div class="sw" style="background:#1e2d45"></div>
+          <div class="sw" style="background:#1a2540"></div>
+          <div class="sw" style="background:#162032"></div>
+          <div class="sw" style="background:#0f172a"></div>
+          <div class="sw" style="background:#060c17"></div>
+        </div>
+        <div class="color-meta">
+          <div class="color-name">Midnight Slate</div>
+          <div class="color-hex">#0f172a</div>
+          <div class="color-var">--dark-bg</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-label">Surface 1</div>
+        <div style="height:52px;border-radius:10px;background:#1e2d45;border:1px solid var(--border)"></div>
+        <div class="color-meta">
+          <div class="color-name">Card Dark</div>
+          <div class="color-hex">#1e2d45</div>
+          <div class="color-var">--surface-1</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-label">Glass Surface</div>
+        <div style="height:52px;border-radius:10px;background:rgba(30,41,59,0.7);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px)"></div>
+        <div class="color-meta">
+          <div class="color-name">Glass BG</div>
+          <div class="color-hex">rgba(30,41,59, 0.7)</div>
+          <div class="color-var">--glass-bg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g4">
+      <div class="box">
+        <div class="box-label">Card White</div>
+        <div style="height:52px;border-radius:10px;background:#ffffff;border:1px solid #e2e8f0"></div>
+        <div class="color-meta">
+          <div class="color-name">Card White</div>
+          <div class="color-hex">#ffffff</div>
+          <div class="color-var">--card-white</div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-label">Text Dark</div>
+        <div style="height:52px;border-radius:10px;background:#1e293b;display:flex;align-items:center;padding:0 14px"><span style="font-size:14px;color:#fff;font-weight:500">Aa</span></div>
+        <div class="color-meta">
+          <div class="color-name">Slate 800</div>
+          <div class="color-hex">#1e293b</div>
+          <div class="color-var">--text-dark</div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-label">Text Muted</div>
+        <div style="height:52px;border-radius:10px;background:#162032;display:flex;align-items:center;padding:0 14px"><span style="font-size:14px;color:#94a3b8;font-weight:500">Aa</span></div>
+        <div class="color-meta">
+          <div class="color-name">Slate 400</div>
+          <div class="color-hex">#94a3b8</div>
+          <div class="color-var">--text-muted</div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-label">Glass Border</div>
+        <div style="height:52px;border-radius:10px;background:transparent;border:2px solid rgba(255,255,255,0.1)"></div>
+        <div class="color-meta">
+          <div class="color-name">White 10%</div>
+          <div class="color-hex">rgba(255,255,255, 0.1)</div>
+          <div class="color-var">--glass-border</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="g2">
+      <div class="box">
+        <div class="box-label">Border Light</div>
+        <div style="height:40px;border-radius:10px;border:2px solid rgba(255,255,255,0.05);background:transparent"></div>
+        <div class="color-meta">
+          <div class="color-name">Glass Border (subtle)</div>
+          <div class="color-hex">rgba(255,255,255, 0.05)</div>
+          <div class="color-var">--border-subtle</div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-label">Radial BG</div>
+        <div style="height:40px;border-radius:10px;background:radial-gradient(circle at 20% 50%,rgba(108,99,255,.3),transparent 70%)"></div>
+        <div class="color-meta">
+          <div class="color-name">Ambient Glow</div>
+          <div class="color-hex">rgba(108,99,255, 0.15)</div>
+          <div class="color-var">Used in body bg radials</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 TYPE SCALE -->
+  <div class="sec">
+    <div class="sec-tag">02 — Typography</div>
+    <div class="sec-title">Type Scale</div>
+    <div class="divider"></div>
+    <div class="box">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Display / H1</div>
+          <div class="type-detail">clamp(2.5rem, 5vw, 3.5rem)<br>font-weight: 700<br>color: #ffffff</div>
+        </div>
+        <div class="type-specimen" style="font-size:38px;font-weight:700;color:#fff">Snap <span style="color:var(--p)">Poster</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Heading / H2</div>
+          <div class="type-detail">1.8rem · 700<br>color: #ffffff<br>Login / section title</div>
+        </div>
+        <div class="type-specimen" style="font-size:28px;font-weight:700;color:#fff">Welcome <span style="color:var(--p)">Back</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Subheading</div>
+          <div class="type-detail">1rem · 600<br>color: var(--text-dark)<br>Card labels</div>
+        </div>
+        <div class="type-specimen" style="font-size:16px;font-weight:600;color:#e2e8f0">Intensity Level</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Nav / Caps label</div>
+          <div class="type-detail">0.75rem · 600<br>letter-spacing: .08em<br>UPPERCASE</div>
+        </div>
+        <div class="type-specimen" style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">UPLOAD · FILTER · DOWNLOAD</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Body</div>
+          <div class="type-detail">1rem · 400<br>line-height: 1.6<br>color: --text-muted</div>
+        </div>
+        <div class="type-specimen" style="font-size:15px;font-weight:400;color:var(--muted);line-height:1.6">Upload once, play with filters forever. Drag &amp; drop your image or browse to get started.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label-name">Input placeholder</div>
+          <div class="type-detail">1rem · 400<br>color: muted<br>0.5rem opacity</div>
+        </div>
+        <div class="type-specimen" style="font-size:15px;color:var(--muted)">Sign in to continue to Snap Poster or fill in your details</div>
+      </div>
+      <div class="type-row" style="border:none">
+        <div class="type-meta">
+          <div class="type-label-name">Button / Badge</div>
+          <div class="type-detail">0.8rem – 1rem · 600<br>color: #ffffff</div>
+        </div>
+        <div class="type-specimen" style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:16px;font-weight:600;color:#fff">Apply Filter</span>
+          <span style="font-size:13px;font-weight:600;color:var(--muted)">→ Hi, <span style="color:var(--p)">Poster</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 UI COMPONENTS -->
+  <div class="sec">
+    <div class="sec-tag">03 — Library</div>
+    <div class="sec-title">UI Components</div>
+    <div class="divider"></div>
+
+    <div class="g2" style="margin-bottom:14px">
+
+      <!-- BUTTONS -->
+      <div class="box">
+        <div class="box-label">Buttons</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px">
+          <button class="btn-p"><i class="ti ti-bolt" aria-hidden="true"></i> Apply Filter</button>
+          <button class="btn-s"><i class="ti ti-download" aria-hidden="true"></i> Download</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px">
+          <button class="btn-g">Sign Up</button>
+          <button class="btn-p btn-sm">Login</button>
+          <button class="btn-ghost2 btn-sm">Cancel</button>
+        </div>
+        <div style="font-size:11px;font-family:monospace;color:rgba(255,255,255,.25);line-height:1.9">
+          Primary: linear-gradient(135deg, #6c63ff, #4f46e5)<br>
+          hover: translateY(-3px) + box-shadow glow<br>
+          border-radius: 12px · padding: 13px 22px<br>
+          font-weight: 600 · transition: .4s cubic-bezier(...)
+        </div>
+      </div>
+
+      <!-- FORM INPUTS -->
+      <div class="box">
+        <div class="box-label">Form inputs</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="inp-wrap">
+            <i class="ti ti-user" aria-hidden="true"></i>
+            <input placeholder="Username" />
+          </div>
+          <div class="inp-wrap">
+            <i class="ti ti-lock" aria-hidden="true"></i>
+            <input type="password" placeholder="Password field" />
+          </div>
+          <div class="inp-wrap" style="position:relative">
+            <i class="ti ti-photo" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--p);font-size:15px;z-index:1" aria-hidden="true"></i>
+            <select class="inp-base" style="padding-left:44px">
+              <option>Snap Classic (x8)</option>
+              <option>Cartoon Style (x4)</option>
+              <option>Strong Aesthetic (x2)</option>
+              <option>Light Touch (x16)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:14px">
+
+      <!-- BADGES & TAGS -->
+      <div class="box">
+        <div class="box-label">Badges &amp; Tags</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <span class="badge-dark">Original</span>
+          <span class="badge-ok">Filtered</span>
+          <span style="background:rgba(108,99,255,.2);color:#a5b4fc;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:500">Processing</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <span class="pill pill-loading"><span class="pill-dot"></span> Loading</span>
+          <span class="pill pill-success"><span class="pill-dot"></span> Success</span>
+          <span class="pill pill-error"><span class="pill-dot"></span> Error</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="pill pill-active"><span class="pill-dot"></span> Active</span>
+          <span class="pill pill-disabled"><span class="pill-dot"></span> Disabled</span>
+        </div>
+        <div style="font-size:10px;font-family:monospace;color:rgba(255,255,255,.2);margin-top:14px;line-height:1.8">
+          background: rgba(color, 0.85) · backdrop-filter: blur(4px)<br>badge: border-radius: 8px · pill: border-radius: 100px
+        </div>
+      </div>
+
+      <!-- SELECT / DROPDOWN -->
+      <div class="box">
+        <div class="box-label">Select / Dropdown</div>
+        <div style="margin-bottom:6px;font-size:12px;font-weight:600;color:#e2e8f0">Intensity Level</div>
+        <select class="inp-base">
+          <option>Snap Classic (x8)</option>
+          <option>Cartoon Style (x4)</option>
+        </select>
+        <div style="font-size:11px;font-family:monospace;color:rgba(255,255,255,.25);margin-top:14px;line-height:1.8">
+          background: rgba(255,255,255, .05)<br>
+          border: 1px solid rgba(255,255,255, .14)<br>
+          border-radius: 12px · padding: 13px 14px<br>
+          focus: border-color: #6c63ff + glow ring
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:14px">
+
+      <!-- GLASS CARD (LOGIN) -->
+      <div class="box">
+        <div class="box-label">Glass Card (Login)</div>
+        <div class="glass-card">
+          <div style="text-align:center;margin-bottom:18px">
+            <div style="width:52px;height:52px;border-radius:16px;background:rgba(108,99,255,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;color:var(--p)">
+              <i class="ti ti-camera" aria-hidden="true"></i>
+            </div>
+            <div style="font-size:22px;font-weight:700;color:#fff">Welcome <span style="color:var(--p)">Back</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">Sign in to continue to Snap Poster</div>
+          </div>
+          <input class="glass-input" placeholder="Username" style="display:block"/>
+          <input class="glass-input" type="password" placeholder="Password" style="display:block"/>
+          <button class="btn-p" style="width:100%;justify-content:center;margin-top:4px">Sign In <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+
+      <!-- WHITE CARD (MAIN) -->
+      <div class="box">
+        <div class="box-label">White Card (Main)</div>
+        <div class="white-card">
+          <div style="font-size:15px;font-weight:600;color:#1e293b;margin-bottom:6px">Filter Settings</div>
+          <div style="font-size:13px;color:#64748b;margin-bottom:16px">Choose which intensity best suits your poster. Fine-tune to get the perfect look for your image.</div>
+          <div style="display:flex;gap:8px;margin-bottom:12px">
+            <button style="flex:1;padding:10px;background:linear-gradient(135deg,#6c63ff,#4f46e5);border:none;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">Apply</button>
+            <button style="flex:1;padding:10px;background:#10b981;border:none;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">Download</button>
+          </div>
+          <div style="font-size:11px;font-family:monospace;color:#94a3b8;line-height:1.8">
+            background: #ffffff · border-radius: 28px<br>
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,.5)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <!-- DROP ZONE -->
+      <div class="box">
+        <div class="box-label">Drop Zone</div>
+        <div class="drop">
+          <div class="drop-icon"><i class="ti ti-cloud-upload" aria-hidden="true"></i></div>
+          <div style="font-size:14px;font-weight:500;color:#e2e8f0;margin-bottom:4px">Drag &amp; drop image or browse</div>
+          <div style="font-size:12px;color:var(--muted)">PNG, JPG up to 10MB</div>
+        </div>
+        <div style="font-size:11px;font-family:monospace;color:rgba(255,255,255,.2);margin-top:14px;line-height:1.8">
+          border: 2px dashed rgba(255,255,255,.15)<br>
+          hover: border-color: #6c63ff<br>
+          border-radius: 20px · transition: .3s
+        </div>
+      </div>
+
+      <!-- DOWNLOAD LINK -->
+      <div class="box">
+        <div class="box-label">Download Link</div>
+        <a href="#" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--success);color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-weight:600;font-size:14px;margin-bottom:14px">
+          <i class="ti ti-download" aria-hidden="true"></i> Download
+        </a>
+        <div style="font-size:11px;font-family:monospace;color:rgba(255,255,255,.2);line-height:1.8">
+          background: #10b981 · color: #ffffff<br>
+          font-weight: 600 · border-radius: 12px<br>
+          padding: 14px · display: flex · gap: 10px<br>
+          hover: opacity .85 + translateY(-2px)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 SHADOWS & ELEVATION -->
+  <div class="sec">
+    <div class="sec-tag">04 — Depth</div>
+    <div class="sec-title">Shadows &amp; Elevation</div>
+    <div class="divider"></div>
+
+    <div class="g4" style="margin-bottom:14px">
+      <div class="sh-card sh-none">
+        <div class="sh-val">0</div>
+        <div class="sh-name">Flat</div>
+        <div class="sh-code">none<br>border: 1px solid<br>rgba(255,255,255,.08)</div>
+      </div>
+      <div class="sh-card sh-sm">
+        <div class="sh-val">Sm</div>
+        <div class="sh-name">Small</div>
+        <div class="sh-code">0 4px 12px<br>rgba(0,0,0, .25)</div>
+      </div>
+      <div class="sh-card sh-md">
+        <div class="sh-val">Md</div>
+        <div class="sh-name">Medium</div>
+        <div class="sh-code">0 10px 25px<br>rgba(0,0,0, .35)</div>
+      </div>
+      <div class="sh-card sh-lg">
+        <div class="sh-val">Lg</div>
+        <div class="sh-name">Large</div>
+        <div class="sh-code">0 25px 50px -12px<br>rgba(0,0,0, .6)</div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-bottom:24px">
+      <div class="sh-card sh-none">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--surface2);margin:0 auto 10px"></div>
+        <div class="sh-name">Card</div>
+        <div class="sh-code">No shadow<br>border only<br>radius: 16px</div>
+      </div>
+      <div class="sh-card sh-glow">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--sec));margin:0 auto 10px"></div>
+        <div class="sh-name">Button Hover</div>
+        <div class="sh-code">0 15px 30px<br>rgba(108,99,255, .3)<br>Primary Glow</div>
+      </div>
+      <div class="sh-card" style="box-shadow:0 0 0 3px rgba(108,99,255,.35)">
+        <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--p);margin:0 auto 10px"></div>
+        <div class="sh-name">Input Focus</div>
+        <div class="sh-code">0 0 0 3px<br>rgba(108,99,255, .35)<br>Focus ring</div>
+      </div>
+      <div class="sh-card sh-success">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--success);margin:0 auto 10px"></div>
+        <div class="sh-name">Success Hover</div>
+        <div class="sh-code">0 8px 20px<br>rgba(16,185,129, .25)<br>Green Glow</div>
+      </div>
+    </div>
+
+    <!-- BORDER RADIUS -->
+    <div class="box-label" style="margin-bottom:12px">Border Radius Scale</div>
+    <div class="g5">
+      <div class="r-box" style="border-radius:4px"><span>4px</span><span style="font-size:10px;opacity:.6">xs</span></div>
+      <div class="r-box" style="border-radius:8px"><span>8px</span><span style="font-size:10px;opacity:.6">sm</span></div>
+      <div class="r-box" style="border-radius:12px"><span>12px</span><span style="font-size:10px;opacity:.6">md</span></div>
+      <div class="r-box" style="border-radius:16px"><span>16px</span><span style="font-size:10px;opacity:.6">lg</span></div>
+      <div class="r-box" style="border-radius:20px"><span>20px</span><span style="font-size:10px;opacity:.6">xl</span></div>
+      <div class="r-box" style="border-radius:24px"><span>24px</span><span style="font-size:10px;opacity:.6">2xl</span></div>
+      <div class="r-box" style="border-radius:28px"><span>28px</span><span style="font-size:10px;opacity:.6">main</span></div>
+      <div class="r-box" style="border-radius:32px"><span>32px</span><span style="font-size:10px;opacity:.6">login</span></div>
+      <div class="r-box" style="border-radius:50%;aspect-ratio:1"><span>50%</span><span style="font-size:10px;opacity:.6">circle</span></div>
+      <div class="r-box" style="border-radius:100px"><span>pill</span><span style="font-size:10px;opacity:.6">∞</span></div>
+    </div>
+
+    <div style="margin-top:40px;border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:12px;color:rgba(255,255,255,.2)">© 2026 Snap Poster Design System</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.2)">Poppins · 4 sections · 9 components</div>
+    </div>
+  </div>
+
+</div>
