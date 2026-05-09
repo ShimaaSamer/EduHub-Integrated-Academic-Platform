@@ -1,0 +1,8 @@
+.env
+*.env
+
+__pycache__/
+*.pyc
+
+Final_Project/src/backend/static/uploads/
+Final_Project/src/backend/static/results/
